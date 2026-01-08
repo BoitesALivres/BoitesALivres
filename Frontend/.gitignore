@@ -1,0 +1,9 @@
+/node_modules
+.env
+/.angular
+/.vscode
+/dist
+/.idea
+
+### Mac ###
+.DS_Store

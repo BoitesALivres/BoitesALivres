@@ -1,0 +1,82 @@
+<div
+	class="bg-linear-to-br from-blue-500 to-purple-600 p-4 overflow-hidden"
+	style="min-height: calc(100vh - 4rem)">
+	<div class="w-full h-full flex gap-4" style="height: calc(100vh - 100px)">
+		<div class="w-3/4">
+			<mat-card class="h-full shadow-2xl">
+				<mat-card-content class="h-full p-0!">
+					<div id="map" class="w-full h-full rounded-sm"></div>
+				</mat-card-content>
+			</mat-card>
+		</div>
+
+		<div class="w-1/4 h-full flex flex-col">
+			<mat-card class="h-full flex-1 shadow-2xl flex flex-col">
+				<mat-card-header class="text-left" style="padding-bottom: 1rem">
+					<mat-card-title class="text-2xl font-bold text-gray-800"
+						>Boxes</mat-card-title
+					>
+				</mat-card-header>
+				<mat-card-content
+					class="h-full flex-1 flex flex-col max-h-full overflow-hidden">
+					<mat-form-field appearance="fill" class="w-full">
+						<mat-label>Search</mat-label>
+						<input
+							matInput
+							[ngModel]="searchTerm"
+							(ngModelChange)="onSearchChange($event)"
+							placeholder="Search boxes..." />
+						<mat-icon matPrefix>search</mat-icon>
+					</mat-form-field>
+
+					<div class="h-[calc(100%-5rem)] overflow-y-auto">
+						<div *ngIf="loading" class="flex justify-center">
+							<mat-spinner></mat-spinner>
+						</div>
+
+						<div
+							*ngIf="!loading && filteredBoxes.length === 0"
+							class="text-center text-gray-500 py-4">
+							No boxes found
+						</div>
+
+						<div
+							*ngFor="let box of filteredBoxes"
+							class="mb-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
+							(click)="selectBox(box)"
+							[class.bg-blue-50]="selectedBox?.id === box.id">
+							<div class="flex justify-between items-start">
+								<div class="flex-1">
+									<h4 class="font-semibold text-gray-800">
+										{{ box.name }}
+									</h4>
+									<p class="text-sm text-gray-600 line-clamp-2">
+										{{ box.description }}
+									</p>
+									<p class="text-xs text-gray-500 mt-1">
+										Quantity: {{ box.quantity }}
+									</p>
+								</div>
+								<div class="ml-2">
+									<span
+										*ngIf="hasReservation(box.id)"
+										class="w-3 h-3 rounded-full bg-orange-500 inline-block"></span>
+									<span
+										*ngIf="!hasReservation(box.id)"
+										class="w-3 h-3 rounded-full bg-blue-500 inline-block"></span>
+								</div>
+							</div>
+							<button
+								mat-raised-button
+								[color]="hasReservation(box.id) ? 'warn' : 'primary'"
+								class="w-full mt-2"
+								(click)="makeReservation(box, $event)">
+								{{ hasReservation(box.id) ? "Cancel Reservation" : "Reserve" }}
+							</button>
+						</div>
+					</div>
+				</mat-card-content>
+			</mat-card>
+		</div>
+	</div>
+</div>

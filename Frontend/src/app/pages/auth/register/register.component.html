@@ -1,0 +1,84 @@
+<div
+	class="flex items-center justify-center bg-linear-to-br from-blue-500 to-purple-600 p-4" style="min-height: calc(100vh - 4rem)">
+	<mat-card class="w-full max-w-md shadow-2xl">
+		<mat-card-header class="text-left pb-6">
+			<mat-card-title class="text-2xl font-bold text-gray-800"
+				>Create Account</mat-card-title
+			>
+			<mat-card-subtitle class="text-gray-600">Join us today</mat-card-subtitle>
+		</mat-card-header>
+
+		<mat-card-content>
+			<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+				<mat-form-field appearance="fill" class="w-full">
+					<mat-label>Username</mat-label>
+					<input matInput formControlName="username" required />
+					<mat-icon matPrefix>person</mat-icon>
+					<mat-error>{{ getErrorMessage("username") }}</mat-error>
+				</mat-form-field>
+
+				<mat-form-field appearance="fill" class="w-full">
+					<mat-label>First Name</mat-label>
+					<input matInput formControlName="first_name" required />
+					<mat-icon matPrefix>badge</mat-icon>
+					<mat-error>{{ getErrorMessage("first_name") }}</mat-error>
+				</mat-form-field>
+
+				<mat-form-field appearance="fill" class="w-full">
+					<mat-label>Last Name</mat-label>
+					<input matInput formControlName="last_name" required />
+					<mat-icon matPrefix>badge</mat-icon>
+					<mat-error>{{ getErrorMessage("last_name") }}</mat-error>
+				</mat-form-field>
+
+				<mat-form-field appearance="fill" class="w-full">
+					<mat-label>Email</mat-label>
+					<input matInput formControlName="email" type="email" required />
+					<mat-icon matPrefix>email</mat-icon>
+					<mat-error>{{ getErrorMessage("email") }}</mat-error>
+				</mat-form-field>
+
+				<mat-form-field appearance="fill" class="w-full">
+					<mat-label>Password</mat-label>
+					<input matInput formControlName="password" type="password" required />
+					<mat-icon matPrefix>lock</mat-icon>
+					<mat-error>{{ getErrorMessage("password") }}</mat-error>
+				</mat-form-field>
+
+				<mat-form-field appearance="fill" class="w-full">
+					<mat-label>Confirm Password</mat-label>
+					<input
+						matInput
+						formControlName="password_confirmation"
+						type="password"
+						required />
+					<mat-icon matPrefix>lock</mat-icon>
+					<mat-error>{{ getErrorMessage("password_confirmation") }}</mat-error>
+				</mat-form-field>
+
+				<button
+					mat-raised-button
+					color="primary"
+					type="submit"
+					class="w-full h-12 text-lg"
+					[disabled]="submitting">
+					<mat-icon *ngIf="submitting" class="animate-spin mr-2"
+						>refresh</mat-icon
+					>
+					{{ submitting ? "Creating Account..." : "Create Account" }}
+				</button>
+			</form>
+		</mat-card-content>
+
+		<mat-card-actions class="justify-center pt-4">
+			<p class="text-sm text-gray-600">
+				Already have an account?
+				<a
+					routerLink="/auth/login"
+					class="text-blue-600 hover:underline font-medium"
+					>Sign in</a
+				>
+			</p>
+		</mat-card-actions>
+	</mat-card>
+</div>

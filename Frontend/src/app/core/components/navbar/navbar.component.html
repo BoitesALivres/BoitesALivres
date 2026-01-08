@@ -1,0 +1,53 @@
+<mat-toolbar
+	class="fixed top-0 left-0 right-0 z-10 bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg">
+	<span class="font-bold text-xl">BoitesALivres</span>
+	<span class="flex-1"></span>
+	<div
+		*ngIf="userStore.user$ | async; else notLoggedIn"
+		class="flex items-center space-x-4">
+		<button
+			mat-button
+			routerLink="/"
+			routerLinkActive="active"
+			class="text-white hover:bg-white/10">
+			<mat-icon>home</mat-icon>
+			Home
+		</button>
+		<button
+			mat-button
+			routerLink="/boxes"
+			routerLinkActive="active"
+			class="text-white hover:bg-white/10">
+			<mat-icon>inventory</mat-icon>
+			Boxes
+		</button>
+		<button
+			mat-button
+			routerLink="/reservations"
+			routerLinkActive="active"
+			class="text-white hover:bg-white/10">
+			<mat-icon>event_note</mat-icon>
+			Reservations
+		</button>
+		<button
+			mat-icon-button
+			(click)="logout()"
+			class="text-white hover:bg-white/10">
+			<mat-icon>logout</mat-icon>
+		</button>
+	</div>
+	<ng-template #notLoggedIn>
+		<button
+			mat-button
+			routerLink="/auth/login"
+			class="text-white hover:bg-white/10">
+			Login
+		</button>
+		<button
+			mat-button
+			routerLink="/auth/register"
+			class="text-white hover:bg-white/10">
+			Register
+		</button>
+	</ng-template>
+</mat-toolbar>
