@@ -3,8 +3,8 @@ import { Injectable } from "@angular/core";
 import { z } from "zod";
 
 const loginSchema = z.object({
-	email: z.string().email("Format email invalide"),
-	password: z.string().min(1, "Le mot de passe est requis"),
+	email: z.string().email("Invalid email format"),
+	password: z.string().min(1, "Password is required"),
 });
 
 type LoginData = z.infer<typeof loginSchema>;

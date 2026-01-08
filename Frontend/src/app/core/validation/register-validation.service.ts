@@ -4,21 +4,21 @@ import { z } from "zod";
 
 const registerSchema = z
 	.object({
-		username: z.string().min(1, "Le nom d'utilisateur est requis").trim(),
-		first_name: z.string().min(1, "Le prénom est requis").trim(),
-		last_name: z.string().min(1, "Le nom est requis").trim(),
-		email: z.email("Format email invalide"),
+		username: z.string().min(1, "Username is required").trim(),
+		first_name: z.string().min(1, "First name is required").trim(),
+		last_name: z.string().min(1, "Last name is required").trim(),
+		email: z.email("Invalid email format"),
 		password: z
 			.string()
-			.min(8, "Le mot de passe doit contenir au moins 8 caractères")
+			.min(8, "Password must contain at least 8 characters")
 			.regex(
 				/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
-				"Le mot de passe doit contenir min. 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial."
+				"Password must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special character."
 			),
-		password_confirmation: z.string().min(1, "La confirmation est requise"),
+		password_confirmation: z.string().min(1, "Confirmation is required"),
 	})
 	.refine(data => data.password === data.password_confirmation, {
-		message: "Les mots de passe ne correspondent pas",
+		message: "Passwords do not match",
 		path: ["password_confirmation"],
 	});
 
